@@ -1,0 +1,29 @@
+<%- include("partials/header")-%>
+
+
+<body class="text-center">
+
+
+<form class="form-signin" action="/app/V1.0/home/login" method="post">
+<img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+
+<h1 class="h3 mb-3 font-weight-normal">Please Login In</h1>
+<h4 > <%= data %> </h4>
+
+<!-- <label for="F" class="sr-only">Email address</label> -->
+<input type="text" name="name" class="form-control top" placeholder="Full Name" required autocomplete="off">
+
+
+<!-- <label for="inputPassword" class="sr-only">Password</label> -->
+
+
+<input type="text" name="number" class="form-control bottom" placeholder="Mobile Number" required autocomplete="off">
+<button class="btn btn-lg btn-dark btn-block" type="submit">Login</button>
+
+
+<p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+</form>
+
+
+</body>
+</html>
