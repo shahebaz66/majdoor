@@ -7,7 +7,9 @@ const {
   signup,
   registeringUser,
   login,
-  checkuser
+  checkuser,
+  verifyOtp,
+  getOTP
 }=require("../controllers/registrationController.js")
 
 
@@ -20,5 +22,7 @@ app.route('/signup')
 app.route('/login')
      .get(login)
      .post(checkuser)
-
+app.route('/verifyOtp')
+  .post(verifyOtp)
+app.post('/getOTP',getOTP)
 module.exports=app

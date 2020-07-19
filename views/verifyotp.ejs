@@ -103,38 +103,36 @@ margin-bottom: -1px;
     <link href="signin.css" rel="stylesheet">
   </head>
 
-  <body class="text-center">
-    <!-- <h1 class="heading">Majdoor</h1> -->
 
-<form class="form-signin" action="/app/V1.0/home/getOTP" autocomplete="new-password" method="post">
 
-  <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
+<body class="text-center">
+
+
+<form class="form-signin" action="/app/V1.0/home/verifyOtp" autocomplete="new-password" method="post">
+
+<h1 class="h3 mb-3 font-weight-normal">Please Enter Otp</h1>
 <h4 > <%= data %> </h4>
 
-  <!-- <label for="F" class="sr-only">Email address</label> -->
-  <input type="text" name="name" class="form-control top" placeholder="Full Name"  autocomplete="off" autofocus required>
-
-
-  <!-- <label for="inputPassword" class="sr-only">Password</label> -->
-
-
-  <input type="text" name="number" class="form-control middle" placeholder="Mobile Number"  autocomplete="off" required>
-
-  <input type="email"  name="email" class="form-control middle" placeholder="Email Address"  autocomplete="off"  required>
-
-   <input type="text" name="password" class="form-control bottom" placeholder="Enter new password" autocomplete="new-password"   required> -
-
-    <input type="text" name="repassword"  class="form-control bottom" placeholder="Re-Enter password" required autocomplete="off">
+<input type="text" name="otp" class="form-control top" placeholder="Enter OTP"  autocomplete="new-password" required>
 
 
 
 
 
 
-  <button class="btn btn-lg btn-dark btn-block" type="submit">Sign up</button>
-  <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+<button class="btn btn-lg btn-dark btn-block" type="submit">Login</button>
+
+
+<p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 </form>
 
 
 </body>
 </html>
+
+
+<!-- ACCOUNT SID
+ACe49d0b36e01ffc4e7455f2b995270ded
+AUTH TOKEN
+Hide
+7c11b3a32e225c1602109bc52343d494 -->
