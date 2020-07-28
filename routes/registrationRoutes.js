@@ -1,15 +1,16 @@
 
 const express=require("express");
-const app=express();
+const app=express.Router({mergeParams: true});
 
 const {
   home,
   signup,
-  registeringUser,
   login,
   checkuser,
   verifyOtp,
-  getOTP
+  getOTP,
+logout
+
 }=require("../controllers/registrationController.js")
 
 
@@ -18,11 +19,17 @@ app.route('/')
 
 app.route('/signup')
     .get(signup)
-    .post(registeringUser)
+
+
 app.route('/login')
      .get(login)
      .post(checkuser)
+
+app.post('/getOTP',getOTP)
+
 app.route('/verifyOtp')
   .post(verifyOtp)
-app.post('/getOTP',getOTP)
+
+app.get("/logout",logout)
+
 module.exports=app

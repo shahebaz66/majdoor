@@ -112,7 +112,11 @@ margin-bottom: -1px;
 
 <h1 class="h3 mb-3 font-weight-normal">Please Enter Otp</h1>
 <h4 > <%= data %> </h4>
-
+<input type="hidden" name="oid" value="<%=oid%>">
+<input type="hidden" name="name" value="<%=name%>">
+<input type="hidden" name="number" value="<%=number%>">
+<input type="hidden" name="email" value="<%=email%>">
+<input type="hidden" name="password" value="<%=password%>">
 <input type="text" name="otp" class="form-control top" placeholder="Enter OTP"  autocomplete="new-password" required>
 
 
