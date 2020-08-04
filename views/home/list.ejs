@@ -1,0 +1,30 @@
+
+<%- include("../homepartials/headers") %>
+
+
+<% for(var i=0; i< listOfMajdoor.length; i++){ %>
+  <div class="row">
+
+    <div class="pricing-column col-lg-3 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3><%= listOfMajdoor[i].category %></h3>
+        </div>
+        <div class="card-body">
+
+          <p><strong>Name:</strong> <%= listOfMajdoor[i].name %></p>
+          <p><strong>Phone Number:</strong> <%= listOfMajdoor[i].number %></p>
+
+          <button class="btn btn-lg btn-block btn-outline-dark" type="button">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+
+    <% } %>
+<%- include("../homepartials/footer") %>

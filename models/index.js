@@ -8,3 +8,5 @@ mongoose.connect("mongodb+srv://majdoor:majdoor@cluster0.pv3iy.mongodb.net/majdo
 
 
 module.exports.User=require("./userModel.js");
+module.exports.Post=require("./postModel.js");
+module.exports.Majdoor=require("./majdoorModel.js");

@@ -17,11 +17,13 @@ async function createWebToken(id){
   return token;
 }
 exports.home=async function (req,res) {
+  res.clearCookie("token");
   res.render("home.ejs")
 }
                      // SIGNUP PAGE
 
 exports.signup=async function (req,res) {
+  res.clearCookie("token");
   res.render("registration/sign-up.ejs",{data:""})
 }
 
@@ -128,6 +130,7 @@ req1.end();
 
 
 exports.login=async function (req,res) {
+  res.clearCookie("token");
   res.render("registration/login.ejs",{data:""})
 }
 
@@ -187,4 +190,3 @@ exports.logout=async function (req,res) {
 //   });
 //
 // };
-                            //NAVBAR ITEMS

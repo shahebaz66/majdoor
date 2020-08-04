@@ -4,7 +4,10 @@ const {
   home,
   profile,
   setting,
-  logout
+  logout,
+  majdoor,
+  list
+
 
 }=require("../controllers/homeController.js")
 
@@ -13,6 +16,7 @@ const {
 
 app.route('/')
     .get(home)
+     .post(majdoor)
 
 app.route('/profile')
     .get(profile)
@@ -22,4 +26,7 @@ app.route('/setting')
 
 app.route('/logout')
             .get(logout)
+
+app.route('/list', list)
+       //.get(list)
 module.exports=app

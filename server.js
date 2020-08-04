@@ -25,8 +25,11 @@ const version="V1.0"
 app.use(`/app/${version}/home`,registrationRoutes)
 app.use(`/app/${version}/majdoor`,protect,homeRoutes)
 
-app.listen(3000,function () {
-  console.log("Server is running at 3000");
+
+var port = process.env.PORT || 8080;
+
+app.listen(port,function () {
+  console.log(`Server is running at the ${port}`);
 
 });
 module.exports=app
