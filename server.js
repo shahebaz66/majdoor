@@ -22,8 +22,8 @@ const version="V1.0"
 
 
 
-app.use(`/app/${version}/home`,registrationRoutes)
-app.use(`/app/${version}/majdoor`,protect,homeRoutes)
+app.use(`/`,registrationRoutes)
+app.use(`/majdoor`,protect,homeRoutes)
 
 
 var port = process.env.PORT || 8080;

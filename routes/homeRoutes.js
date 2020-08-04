@@ -15,8 +15,9 @@ const {
 
 
 app.route('/')
-    .get(home)
-     .post(majdoor)
+    .get(home);
+
+app.post('/post',majdoor);
 
 app.route('/profile')
     .get(profile)

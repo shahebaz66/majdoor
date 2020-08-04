@@ -29,8 +29,9 @@ exports.signup=async function (req,res) {
 
 exports.getOTP=async function (req,response) {
 
-     const number=await db.User.find({number:req.body.number})
-     if(number.length===0){
+     const number=await db.User.find({number:req.body.number});
+
+     if(number.length==0){
   var options = {
     "method": "GET",
     "hostname": "2factor.in",
@@ -146,7 +147,7 @@ exports.checkuser=async function (req,res) {
             const cookie=await createWebToken(data._id);
             //console.log(cookie);
             res.cookie("token",cookie)
-            res.redirect("/app/V1.0/majdoor")
+            res.redirect("/majdoor")
             res.end()
           } else {
             res.render("registration/login.ejs",{data:"invalid credentials.."})

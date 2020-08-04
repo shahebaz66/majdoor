@@ -14,7 +14,8 @@ exports.setting= async function (req,res) {
 }
 
 exports.logout= async function (req,res) {
-  redis.del(req.body.token);
+  res.clearCookie("token");
+  res.redirect('/');
 
 }
 
