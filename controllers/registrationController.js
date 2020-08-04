@@ -111,7 +111,7 @@ var req1 = http.request(options, function (res) {
         const cookie=await createWebToken(data._id);
         //console.log(cookie);
         response.cookie('token',cookie);
-        response.redirect("/app/V1.0/majdoor");
+        response.redirect("/majdoor");
         response.end();
       }else{
         response.render("registration/sign-up.ejs",{data:"pls try again.."})
