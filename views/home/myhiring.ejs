@@ -1,0 +1,53 @@
+<%- include("../homepartials/headers") %>
+
+
+
+
+<div class="container">
+<div class="row">
+
+<% for(var i=0; i< listOfMajdoor.length; i++){ %>
+
+    <div class="pricing-column col-lg-3 col-md-6">
+      <div class="card">
+
+        <div class="card-header">
+          <h3><%= listOfMajdoor[i].majdoorid.category %></h3>
+        </div>
+
+
+        <div class="card-body">
+
+          <p><strong>Name:</strong> <%= listOfMajdoor[i].majdoorid.name %></p>
+          <p><strong>Phone Number:</strong> <%= listOfMajdoor[i].majdoorid.number %></p>
+          <p><strong>Job Description:</strong> <%= listOfMajdoor[i].postId.description %></p>
+          <form  class="form-group" action="/majdoor/status/hired" method="post">
+            <input type="hidden" name="majdoorid" value="<%= listOfMajdoor[i].majdoorid._id %>">
+            <input type="hidden" name="id" value="<%= listOfMajdoor[i]._id %>">
+            <button class="btn btn-lg btn-dark btn-block" name="confirm" type="submit">Confirm</button>
+            </form>
+          <form  class="form-group" action="/majdoor/status/rejected" method="post">
+            <input type="hidden" name="majdoorid" value="<%= listOfMajdoor[i].majdoorid._id %>">
+            <input type="hidden" name="id" value="<%= listOfMajdoor[i]._id %>">
+          <button class="btn btn-lg btn-light btn-block" name="reject" type="submit">Reject</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+
+<% } %>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<%- include("../homepartials/footer") %>

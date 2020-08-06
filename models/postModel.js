@@ -4,10 +4,10 @@ const mongoose=require("mongoose");
 
 const postSchema=new mongoose.Schema({
   user_id: String,
-  select: String,
-  jobDescription: String,
-  area: String
-
+  option: String,
+  description: String,
+  location: String,
+  myhiring:[{type: mongoose.Schema.Types.ObjectId, ref: 'Majdoor'}]
 
 });
 

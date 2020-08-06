@@ -3,10 +3,10 @@ const app=express.Router({mergeParams: true});
 const {
   home,
   profile,
-  setting,
+  myhiring,
   logout,
   majdoor,
-  list
+  list,status
 
 
 }=require("../controllers/homeController.js")
@@ -22,12 +22,15 @@ app.post('/post',majdoor);
 app.route('/profile')
     .get(profile)
 
-app.route('/setting')
-        .get(setting)
+app.route('/myhiring')
+        .get(myhiring)
 
 app.route('/logout')
             .get(logout)
 
-app.route('/list', list)
-       //.get(list)
+app.post('/list',list)
+
+app.post('/status/:value',status)
+
+
 module.exports=app
