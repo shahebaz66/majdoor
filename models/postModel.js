@@ -3,7 +3,7 @@ const mongoose=require("mongoose");
 
 
 const postSchema=new mongoose.Schema({
-  user_id: String,
+  userid: String,
   option: String,
   description: String,
   location: String,

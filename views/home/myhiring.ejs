@@ -2,7 +2,7 @@
 
 
 
-
+<p><%= message %></p>
 <div class="container">
 <div class="row">
 
@@ -20,16 +20,18 @@
 
           <p><strong>Name:</strong> <%= listOfMajdoor[i].majdoorid.name %></p>
           <p><strong>Phone Number:</strong> <%= listOfMajdoor[i].majdoorid.number %></p>
-          <p><strong>Job Description:</strong> <%= listOfMajdoor[i].postId.description %></p>
+          <p><strong>Job Assigned:</strong> <%= listOfMajdoor[i].postId.description %></p>
           <form  class="form-group" action="/majdoor/status/hired" method="post">
             <input type="hidden" name="majdoorid" value="<%= listOfMajdoor[i].majdoorid._id %>">
+            <input type="hidden" name="postid" value="<%= listOfMajdoor[i].postId._id %>">
             <input type="hidden" name="id" value="<%= listOfMajdoor[i]._id %>">
-            <button class="btn btn-lg btn-dark btn-block" name="confirm" type="submit">Confirm</button>
+            <button class="btn btn-lg btn-success btn-block" name="confirm" type="submit">Confirmed</button>
             </form>
           <form  class="form-group" action="/majdoor/status/rejected" method="post">
             <input type="hidden" name="majdoorid" value="<%= listOfMajdoor[i].majdoorid._id %>">
+            <input type="hidden" name="postid" value="<%= listOfMajdoor[i].postId._id %>">
             <input type="hidden" name="id" value="<%= listOfMajdoor[i]._id %>">
-          <button class="btn btn-lg btn-light btn-block" name="reject" type="submit">Reject</button>
+          <button class="btn btn-lg btn-danger btn-block" name="reject" type="submit">Rejected</button>
           </form>
         </div>
       </div>

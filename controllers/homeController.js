@@ -12,14 +12,22 @@ exports.profile= async function (req,res) {
 
 exports.myhiring= async function (req,res) {
   const data=await db.User.findOne({_id:req.user._id}).populate('mylist.postId').populate('mylist.majdoorid')
-  console.log(data.mylist);
-  res.render("home/myhiring.ejs",{name:req.user.name,listOfMajdoor:data.mylist})
+  //console.log(data.mylist);
+  if(data.mylist.length){
+    res.render("home/myhiring.ejs",{message:"please give your response for the following employees you contacted",name:req.user.name,listOfMajdoor:data.mylist})
+  }else{
+    res.redirect('/majdoor')
+  }
+
 }
 exports.status= async function (req,res) {
   if(req.params.value == 'hired'){
 
     await db.User.updateOne({_id:req.user._id},{$pull:{mylist:{_id:req.body.id}}});
     await db.User.updateOne({_id:req.user._id},{$addToSet:{myhiring:req.body.majdoorid}});
+    const post=await db.Post.findOne({_id:req.body.postid});
+    post.myhiring.push(req.body.majdoorid);
+    post.save();
     res.redirect('/majdoor/myhiring')
   }else{
     await db.User.updateOne({_id:req.user._id},{$pull:{mylist:{_id:req.body.id}}});
@@ -34,24 +42,39 @@ exports.logout= async function (req,res) {
 
 exports.majdoor=async function (req, res){
 
-
-const data=await db.Majdoor.find({category:req.body.option , location:req.body.location});
-//console.log(req.body);
-const body={
-  user_id: req.user._id,
-  option: req.body.option,
-  description: req.body.description,
-  location: req.body.location,
-};
-const post=await db.Post.create(body);
-req.user.mypost.push(post._id)
-//console.log(post);
-//console.log(data);
-if(data.length){
-        res.render("home/list", {name:req.user.name,listOfMajdoor: data,postId:post._id,option:req.body.option,location:req.body.location});
+if(req.user.mylist.length){
+  res.redirect('/majdoor/myhiring')
 }else{
-  res.render("home/majdoor.ejs",{name:req.user.name,status:"please try again..."})
+  const data=await db.Majdoor.aggregate([
+    {$match:{
+      category:req.body.option,
+      location:req.body.location
+
+    }},
+    {
+      $limit:15
+    }
+  ]);
+  //console.log(req.body);
+  const body={
+    userid: req.user._id,
+    option: req.body.option,
+    description: req.body.description,
+    location: req.body.location,
+  };
+  const post=await db.Post.create(body);
+  req.user.mypost.push(post._id);
+  req.user.save();
+  //console.log(post);
+  //console.log(data);
+  if(data.length){
+          res.render("home/list", {message:"",name:req.user.name,listOfMajdoor: data,postId:post._id,option:req.body.option,location:req.body.location});
+  }else{
+    res.render("home/majdoor.ejs",{name:req.user.name,status:"please try again..."})
+  }
 }
+
+
 }
 
 exports.list=async function (req, res){
@@ -88,7 +111,7 @@ exports.list=async function (req, res){
     }
   ]);
 
-res.render("home/list", {name:req.user.name,listOfMajdoor: data,postId:req.body.postId,option:req.body.category,location:req.body.location});
+res.render("home/list", {message:"Our employee will contact you shortly..",name:req.user.name,listOfMajdoor: data,postId:req.body.postId,option:req.body.category,location:req.body.location});
 
 }
 
