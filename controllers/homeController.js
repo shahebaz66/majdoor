@@ -72,7 +72,7 @@ if(req.user.mylist.length){
   if(data.length){
           res.render("home/list", {message:"",name:req.user.name,listOfMajdoor: data,postId:post._id,option:req.body.option,location:req.body.location});
   }else{
-    res.render("home/majdoor.ejs",{name:req.user.name,status:"please try again..."})
+    res.render("home/majdoor.ejs",{name:req.user.name,status:"please try again after sometime..."})
   }
 }
 
@@ -101,6 +101,7 @@ exports.list=async function (req, res){
       category:1,
       location:1,
       gender:1,
+      verified:1,
       included:{$in:["$_id",list]}
     }},
     {$match:{
@@ -113,9 +114,12 @@ exports.list=async function (req, res){
       $limit:15
     }
   ]);
-
+  //console.log(data);
+if(data.length >0){
 res.render("home/list", {message:"Our employee will contact you shortly..",name:req.user.name,listOfMajdoor: data,postId:req.body.postId,option:req.body.category,location:req.body.location});
-
+}else{
+  res.render("home/majdoor.ejs",{name:req.user.name,status:"please try again after sometime ..."})
+}
 }
 
 
