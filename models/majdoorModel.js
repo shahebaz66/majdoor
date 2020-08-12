@@ -7,7 +7,8 @@ const majdoorSchema=new mongoose.Schema({
   gender:String,
   location:String,
   category:String,
-  fcmTokem:String
+  fcmTokem:String,
+  verified:String
 });
 
 

@@ -49,7 +49,8 @@ if(req.user.mylist.length){
   const data=await db.Majdoor.aggregate([
     {$match:{
       category:req.body.option,
-      location:req.body.location
+      location:req.body.location,
+      verified:'true'
 
     }},
     {$sample:{
@@ -105,6 +106,7 @@ exports.list=async function (req, res){
     {$match:{
       category:req.body.category,
       location:req.body.location,
+      verified:'true',
       included:false
     }},
     {
