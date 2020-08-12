@@ -39,6 +39,7 @@ exports.logout= async function (req,res) {
   res.redirect('/');
 
 }
+//db.employeeInformation.aggregate([{$sample:{size:1}}]).pretty();
 
 exports.majdoor=async function (req, res){
 
@@ -51,9 +52,9 @@ if(req.user.mylist.length){
       location:req.body.location
 
     }},
-    {
-      $limit:15
-    }
+    {$sample:{
+      size:15
+    }}
   ]);
   //console.log(req.body);
   const body={

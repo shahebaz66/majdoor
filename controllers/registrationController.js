@@ -10,6 +10,7 @@ const jwt = require("jsonwebtoken")
 async function createWebToken(id){
 
   const token = jwt.sign({id}, process.env.JWT_KEY, {
+    exp: Math.floor(Date.now() / 1000) + (60 * 60*5),
 		algorithm: "HS256"
 	});
   //console.log(token);
