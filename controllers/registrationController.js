@@ -3,30 +3,27 @@ const db=require("../models")
 var qs = require("querystring");
 var http = require("http");
 const bcrypt = require('bcrypt');
-const jwt = require("jsonwebtoken");
-var LocalStorage = require('node-localstorage').LocalStorage;
-  localStorage = new LocalStorage('./scratch');
+const jwt = require("jsonwebtoken")
 //var nodemailer = require('nodemailer');
-var store = require('store')
+
                   // HOME PAGE
 async function createWebToken(id){
 
   const token = jwt.sign({id}, process.env.JWT_KEY, {
-    expiresIn: process.env.JWT_TOKEN_EXPIRE
-
+		expiresIn:process.env.JWT_TOKEN_EXPIRE
 	});
   //console.log(token);
 
   return token;
 }
 exports.home=async function (req,res) {
-  store.remove('user')
+  res.clearCookie("token");
   res.render("home.ejs")
 }
                      // SIGNUP PAGE
 
 exports.signup=async function (req,res) {
-  store.remove('user')
+  res.clearCookie("token");
   res.render("registration/sign-up.ejs",{data:""})
 }
 
@@ -113,7 +110,9 @@ var req1 = http.request(options, function (res) {
       if(data != null){
         const cookie=await createWebToken(data._id);
         //console.log(cookie);
-        store.set('token',cookie);
+        response.cookie('token',cookie,{
+          maxAge: 900000, httpOnly: true
+        });
         response.redirect("/majdoor");
         response.end();
       }else{
@@ -134,7 +133,7 @@ req1.end();
 
 
 exports.login=async function (req,res) {
-  store.remove('user')
+  res.clearCookie("token");
   res.render("registration/login.ejs",{data:""})
 }
 
@@ -149,13 +148,9 @@ exports.checkuser=async function (req,res) {
             //console.log(data._id);
             const cookie=await createWebToken(data._id);
             //console.log(cookie);
-            // res.cookie("token",cookie,{
-            //   expires:new Date(
-            //     Date.now()+process.env.JWT_COOKIE_EXPIRE*24*60*60*1000
-            //   )
-            // })
-            store.set('token',cookie);
-            //localStorage.setItem("token",cookie);
+            res.cookie("token",cookie,{
+              maxAge: 900000, httpOnly: true
+            })
             res.redirect("/majdoor")
             res.end()
           } else {
@@ -168,7 +163,7 @@ exports.checkuser=async function (req,res) {
  })
 }
 exports.logout=async function (req,res) {
-  store.remove('user')
+  res.clearCookie("token");
   res.render("home")
 }
 

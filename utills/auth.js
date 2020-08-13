@@ -2,16 +2,13 @@ require('dotenv').config()
 const db=require("../models")
 const jwt = require("jsonwebtoken");
 const redis = require("redis");
-var LocalStorage = require('node-localstorage').LocalStorage;
-  localStorage = new LocalStorage('./scratch');
-var store = require('store')
+
 const protect =async (req, res,next) => {
 	try{
 		//console.log("hello");
 		// We can obtain the session token from the requests cookies, which come with every request
 	  //console.log(req);
-		//const token = req.header('cookie').replace('token=', '')
-		const token=store.get('token')
+		const token = req.header('cookie').replace('token=', '')
 	  //console.log(token);
 
 		// if the cookie is not set, return an unauthorized error
@@ -38,8 +35,7 @@ const protect =async (req, res,next) => {
 			return res.status(400).end()
 		}
 	}catch(e){
-		console.log(e);
-		store.remove('user')
+		res.clearCookie("token");
 	  res.redirect('/');
 	}
 
