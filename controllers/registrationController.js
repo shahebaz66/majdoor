@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken")
 async function createWebToken(id){
 
   const token = jwt.sign({id}, process.env.JWT_KEY, {
-    expiresIn: 60 * 60 * 5
+    expiresIn: process.env.JWT_TOKEN_EXPIRE
 
 	});
   //console.log(token);
@@ -111,7 +111,11 @@ var req1 = http.request(options, function (res) {
       if(data != null){
         const cookie=await createWebToken(data._id);
         //console.log(cookie);
-        response.cookie('token',cookie);
+        response.cookie('token',cookie,{
+          expires:new Date(
+            Date.now()+process.env.JWT_COOKIE_EXPIRE*24*60*60*1000
+          )
+        });
         response.redirect("/majdoor");
         response.end();
       }else{
@@ -147,7 +151,11 @@ exports.checkuser=async function (req,res) {
             //console.log(data._id);
             const cookie=await createWebToken(data._id);
             //console.log(cookie);
-            res.cookie("token",cookie)
+            res.cookie("token",cookie,{
+              expires:new Date(
+                Date.now()+process.env.JWT_COOKIE_EXPIRE*24*60*60*1000
+              )
+            })
             res.redirect("/majdoor")
             res.end()
           } else {
