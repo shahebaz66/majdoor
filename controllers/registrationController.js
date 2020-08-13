@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 var LocalStorage = require('node-localstorage').LocalStorage;
   localStorage = new LocalStorage('./scratch');
 //var nodemailer = require('nodemailer');
-
+var store = require('store')
                   // HOME PAGE
 async function createWebToken(id){
 
@@ -20,13 +20,13 @@ async function createWebToken(id){
   return token;
 }
 exports.home=async function (req,res) {
-  localStorage.removeItem("token");
+  store.remove('user')
   res.render("home.ejs")
 }
                      // SIGNUP PAGE
 
 exports.signup=async function (req,res) {
-  localStorage.removeItem("token");
+  store.remove('user')
   res.render("registration/sign-up.ejs",{data:""})
 }
 
@@ -113,7 +113,7 @@ var req1 = http.request(options, function (res) {
       if(data != null){
         const cookie=await createWebToken(data._id);
         //console.log(cookie);
-        localStorage.setItem("token",cookie);
+        store.set('token',cookie);
         response.redirect("/majdoor");
         response.end();
       }else{
@@ -134,7 +134,7 @@ req1.end();
 
 
 exports.login=async function (req,res) {
-  localStorage.removeItem("token");
+  store.remove('user')
   res.render("registration/login.ejs",{data:""})
 }
 
@@ -154,7 +154,8 @@ exports.checkuser=async function (req,res) {
             //     Date.now()+process.env.JWT_COOKIE_EXPIRE*24*60*60*1000
             //   )
             // })
-            localStorage.setItem("token",cookie);
+            store.set('token',cookie);
+            //localStorage.setItem("token",cookie);
             res.redirect("/majdoor")
             res.end()
           } else {
@@ -167,7 +168,7 @@ exports.checkuser=async function (req,res) {
  })
 }
 exports.logout=async function (req,res) {
-  localStorage.removeItem("token");
+  store.remove('user')
   res.render("home")
 }
 

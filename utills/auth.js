@@ -4,13 +4,14 @@ const jwt = require("jsonwebtoken");
 const redis = require("redis");
 var LocalStorage = require('node-localstorage').LocalStorage;
   localStorage = new LocalStorage('./scratch');
+var store = require('store')
 const protect =async (req, res,next) => {
 	try{
 		//console.log("hello");
 		// We can obtain the session token from the requests cookies, which come with every request
 	  //console.log(req);
 		//const token = req.header('cookie').replace('token=', '')
-		const token=localStorage.getItem("token");
+		const token=store.get('token')
 	  //console.log(token);
 
 		// if the cookie is not set, return an unauthorized error
@@ -38,7 +39,7 @@ const protect =async (req, res,next) => {
 		}
 	}catch(e){
 		console.log(e);
-		localStorage.removeItem("token");
+		store.remove('user')
 	  res.redirect('/');
 	}
 
