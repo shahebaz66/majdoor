@@ -111,7 +111,11 @@ var req1 = http.request(options, function (res) {
         const cookie=await createWebToken(data._id);
         //console.log(cookie);
         response.cookie('token',cookie,{
-          maxAge: 900000, httpOnly: true
+          expires: new Date(
+            Date.now()+process.env.JWT_COOKIE_EXPIRE* 24 * 60 * 60 * 1000
+          ),
+          httpOnly: true,
+          secure:req.secure || req.headers['x-forwarded-proto']=== "https"
         });
         response.redirect("/majdoor");
         response.end();
@@ -149,7 +153,11 @@ exports.checkuser=async function (req,res) {
             const cookie=await createWebToken(data._id);
             //console.log(cookie);
             res.cookie("token",cookie,{
-              maxAge: 900000, httpOnly: true
+              expires: new Date(
+                Date.now()+process.env.JWT_COOKIE_EXPIRE* 24 * 60 * 60 * 1000
+              ),
+              httpOnly: true,
+              secure:req.secure || req.headers['x-forwarded-proto']=== "https"
             })
             res.redirect("/majdoor")
             res.end()
